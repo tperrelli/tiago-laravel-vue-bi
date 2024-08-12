@@ -10,7 +10,7 @@ class MonthCriteria implements CriteriaInterface
     public function apply(Builder $query, array $filters): Builder
     {
         if (!empty($filters['month'])) {
-            $query->whereMonth('created_at', 2);
+            $query->whereMonth('created_at', $filters['month']);
         }
 
         return $query;
