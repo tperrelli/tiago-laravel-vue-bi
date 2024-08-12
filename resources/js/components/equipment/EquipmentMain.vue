@@ -6,7 +6,9 @@
         <form action="">
           <div class="row row-cols-lg-auto">
             <div class="col-12">
-              <input type="text" class="form-control" placeholder="Symbol" aria-label="Symbol">
+              <select class="form-select">
+                  <option value="{{ coin }}" v-for="(coin, index) in coins">{{  coin }}</option>
+              </select>
             </div>
             <div class="col-12">
               <input type="text" class="form-control" placeholder="Name" aria-label="Name">
@@ -18,7 +20,7 @@
               <input type="text" class="form-control" placeholder="Month" aria-label="Month">
             </div>
             <div class="col-12">
-              <input type="button" class="btn btn-success" value="Filter" />
+              <input type="button" @click="filterData" class="btn btn-success" value="Filter" />
             </div>
           </div>
         </form>
@@ -38,6 +40,7 @@ import httpRequest from '../../Services/Http';
 const OK = 200;
 const mainChart = ref(null);
 
+const coins = ref(['- all -', 'BTC', 'ETH', 'SOL']);
 const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun']);
 const datasets = ref([]);
 
@@ -78,6 +81,12 @@ const loadChart = () => {
   }
 };
 
+const filterData = () => {
+
+  //TODO
+};
+
 loadData();
+filterData();
 
 </script>
