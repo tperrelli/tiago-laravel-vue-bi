@@ -1,6 +1,6 @@
 ## Seting up
 
-docker exec app cp .env.example && composer install
+docker exec app cp .env.example .env && composer install
 
 ## Generating database
 
