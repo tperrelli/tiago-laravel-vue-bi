@@ -45,6 +45,7 @@ const mainChart = ref(null);
 const coins = ref(['- all -', 'BTC', 'ETH', 'SOL']);
 const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun']);
 const months = ref([
+  { label: '- all -', value: 0 },
   { label: 'Jan', value: 1 }, 
   { label: 'Fev', value: 2 }, 
   { label: 'Mar', value: 3 }, 
@@ -56,10 +57,10 @@ const months = ref([
 const datasets = ref([]);
 
 const form = {
-  symbol: null,
+  symbol: '- all -',
   name: null,
-  amount: null,
-  month: null
+  amount: 0,
+  month: 0
 };
 
 const loadData = async () => {
