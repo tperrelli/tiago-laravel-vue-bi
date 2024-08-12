@@ -23,5 +23,15 @@ services:
     links:
       - database
 
+  npm:
+    image: node:18.12.1-alpine
+    container_name: node_dev
+    working_dir: /var/www/app
+    volumes:
+      - .:/var/www/app
+    command: "npm install && npm run dev"
+    depends_on:
+      - app
+
 volumes:
   dbdata: {}
