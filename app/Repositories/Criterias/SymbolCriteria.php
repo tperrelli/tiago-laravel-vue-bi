@@ -5,7 +5,7 @@ namespace App\Repositories\Criterias;
 use Illuminate\Database\Eloquent\Builder;
 use App\Repositories\Interfaces\CriteriaInterface;
 
-class SmallNameCriteria implements CriteriaInterface
+class SymbolCriteria implements CriteriaInterface
 {
     public function apply(Builder $query, array $filters): Builder
     {

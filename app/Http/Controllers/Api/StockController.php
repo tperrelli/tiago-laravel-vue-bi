@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\StockRepository;
 use App\Http\Resources\StockResource;
-use App\Models\Stocks;
+use App\Repositories\Criterias\NameCriteria;
 use App\Repositories\Criterias\AmountCriteria;
-use App\Repositories\Criterias\SmallNameCriteria;
+use App\Repositories\Criterias\SymbolCriteria;
+use App\Repositories\Criterias\MonthCriteria;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class StockController extends Controller
@@ -27,8 +28,10 @@ class StockController extends Controller
     public function index(Request $request): JsonResource
     {
         $criterias = [
+            new NameCriteria,
             new AmountCriteria,
-            new SmallNameCriteria,
+            new SymbolCriteria,
+            new MonthCriteria,
         ];
 
         $result = $this->repository->filter($request->all(), $criterias);
