@@ -45,7 +45,7 @@ class StockController extends Controller
                     'total' => array_fill(0, 6, 0)
                 ];
             }
-            $data[$item->small_name]['total'][$item->month - 1] = $item->total; // Subtrai 1 de $item->month para alinhar com índices de array (0-11).
+            $data[$item->small_name]['total'][$item->month - 1] = $item->total;
         }
         
         return StockResource::collection($data);
