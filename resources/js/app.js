@@ -10,12 +10,12 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import App from './components/App.vue';
 import NotFound from './components/NotFound.vue';
-import EquipmentMain from './components/equipment/EquipmentMain.vue';
-import EquipmentDetail from './components/equipment/EquipmentDetail.vue';
+import StockDashboard from './components/stock/StockDashboard.vue';
+import StockDetail from './components/stock/StockDetail.vue';
 
 const routes = [
-  { path: '/', component: EquipmentMain },
-  { path: '/equipment/:id/details', name: 'equipment-details', component: EquipmentDetail },
+  { path: '/', component: StockDashboard },
+  { path: '/stock/:id/details', name: 'stock-details', component: StockDetail },
   { path: '/:pathMatch(.*)*', component: NotFound },
 ];
 

@@ -13,6 +13,7 @@
         "laravel-vite-plugin": "^1.0.0",
         "sass": "^1.56.1",
         "vite": "^5.0.0",
+        "vitest": "^2.0.5",
         "vue": "^3.2.37",
         "vue-router": "^4.4.3"
     },
