@@ -1,36 +1,27 @@
 <template>
-  <div class="container-fluid">
+  <div class="container pt-5">
     <div class="card">
       <div class="card-body">
-
-        <form>
-        <div class="form-row">
-          <div class="col">
-            <input type="text" class="form-control" placeholder="First name">
+        <h5 class="card-title mb-5">Crypto Analytics</h5>
+        <form action="">
+          <div class="row row-cols-lg-auto">
+            <div class="col-12">
+              <input type="text" class="form-control" placeholder="Symbol" aria-label="Symbol">
+            </div>
+            <div class="col-12">
+              <input type="text" class="form-control" placeholder="Name" aria-label="Name">
+            </div>
+            <div class="col-12">
+              <input type="text" class="form-control" placeholder="Amount" aria-label="Amount">
+            </div>
+            <div class="col-12">
+              <input type="text" class="form-control" placeholder="Month" aria-label="Month">
+            </div>
+            <div class="col-12">
+              <input type="button" class="btn btn-success" value="Filter" />
+            </div>
           </div>
-          <div class="col">
-            <input type="text" class="form-control" placeholder="First name">
-          </div>
-          <div class="col">
-            <input type="text" class="form-control" placeholder="First name">
-          </div>
-        </div>
-      </form>
-
-        <form class="form-inline">
-          <div class="form-group mx-sm-3 mb-2">
-            <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
-            <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
-              <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
-          </div>
-          
         </form>
-
-
-        <!-- <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-        </div> -->
       </div>
       <div class="card-body">
         <canvas ref="mainChart"></canvas>
