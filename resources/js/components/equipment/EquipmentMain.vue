@@ -3,26 +3,26 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-5">Crypto Analytics</h5>
-        <form action="">
+        <form @submit.prevent="loadData">
           <div class="row row-cols-lg-auto">
             <div class="col-12">
               <select class="form-select" v-model="form.symbol">
-                  <option :value="coin" v-for="(coin, index) in coins">{{  coin }}</option>
+                  <option :value="coin.value" v-for="(coin, index) in coins">{{ coin.label }}</option>
               </select>
             </div>
             <div class="col-12">
-              <input type="text" class="form-control" placeholder="Name" aria-label="Name" v-model="form.name" />
+              <input type="text" v-model="form.name" class="form-control" placeholder="Name" aria-label="Name">
             </div>
             <div class="col-12">
-              <input type="text" class="form-control" placeholder="Amount" aria-label="Amount" v-model="form.amount" />
+              <input type="text" v-model="form.amount" class="form-control" placeholder="Amount" aria-label="Amount">
             </div>
+              <div class="col-12">
+                  <select class="form-select" v-model="form.month">
+                      <option :value="month.value" v-for="(month, index) in months">{{ month.label }}</option>
+                  </select>
+              </div>
             <div class="col-12">
-              <select class="form-select" v-model="form.month">
-                <option :value="month.value" v-for="(month, index) in months">{{ month.label }}</option>
-              </select>
-            </div>
-            <div class="col-12">
-              <input type="button" @click="filterData" class="btn btn-success" value="Filter" />
+              <input type="submit" class="btn btn-success" value="Filter" />
             </div>
           </div>
         </form>
@@ -42,33 +42,48 @@ import httpRequest from '../../Services/Http';
 const OK = 200;
 const mainChart = ref(null);
 
-const coins = ref(['- all -', 'BTC', 'ETH', 'SOL']);
-const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun']);
-const months = ref([
-  { label: '- all -', value: 0 },
-  { label: 'Jan', value: 1 }, 
-  { label: 'Fev', value: 2 }, 
-  { label: 'Mar', value: 3 }, 
-  { label: 'Apr', value: 4 }, 
-  { label: 'Mai', value: 5 }, 
-  { label: 'Jun', value: 6 },
+let chart = null;
+const coins = ref([
+  { value: '',     label: '- all -'},
+  { value: 'ATL',  label: 'ATL'},
+  { value: 'BTC',  label: 'BTC'},
+  { value: 'ETH',  label: 'ETH'},
+    { value: 'SOL',  label: 'SOL'},
 ]);
-
+const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun']);
 const datasets = ref([]);
 
-const form = {
-  symbol: '- all -',
-  name: null,
-  amount: 0,
-  month: 0
+const form = ref({
+  symbol: '',
+  month: '',
+});
+
+const months = ref([
+    { label: '- all -', value: '' },
+    { label: 'Jan', value: 1 },
+    { label: 'Fev', value: 2 },
+    { label: 'Mar', value: 3 },
+    { label: 'Apr', value: 4 },
+    { label: 'Mai', value: 5 },
+    { label: 'Jun', value: 6 },
+]);
+
+const chartData = {
+  labels: labels.value,
+  datasets: datasets.value
+};
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
 };
 
 const loadData = async () => {
 
-  const response = await httpRequest.get('/api/stocks');
+  const response = await httpRequest.get('/api/stocks', { params: form.value });
   if (response.status === OK) {
     const data = Object.entries(response.data.data)
-
+    datasets.value.splice(0, datasets.value.length)
     data.forEach((item) => {
       datasets.value.push({
         label: item[0],
@@ -79,47 +94,16 @@ const loadData = async () => {
     loadChart();
   }
 };
- 
+
 const loadChart = () => {
-  if (mainChart.value) {
-
-    const chartOptions = {
-      responsive: true,
-      maintainAspectRatio: false,
-    };
-
-    new Chart(mainChart.value, {
-      type: 'bar', 
-      data: {
-        labels: labels.value,
-        datasets: datasets.value
-      }, 
-      options: chartOptions
+  if (mainChart.value && !chart) {
+    chart = new Chart(mainChart.value, {
+        type: 'bar',
+        data: chartData,
+        options: chartOptions
     });
-  }
-};
-
-const filterData = async () => {
-
-  const params = {};
-
-  if (form.symbol) {
-    params.symbol = form.symbol;
-  }
-
-  if (form.amount) {
-    params.amount = form.amount;
-  }
-
-  if (form.month) {
-    params.month = form.month;
-  }
-
-  const response = await httpRequest.get('/api/stocks', { params });
-
-  if (response.status === OK) {
-    datasets.value = [];
-    // loadData();
+  } else if (chart) {
+    chart.update()
   }
 };
 
