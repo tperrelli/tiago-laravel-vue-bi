@@ -45,8 +45,13 @@ const mainChart = ref(null);
 const coins = ref(['- all -', 'BTC', 'ETH', 'SOL']);
 const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun']);
 const months = ref([
-  { label: 'Jan', value: 1 }, { label: 'Fev', value: 2 }, { label: 'Mar', value: 3 }, { label: 'Apr', value: 4 }, { label: 'Mai', value: 5 }, { label: 'Jun', value: 6 }
-])
+  { label: 'Jan', value: 1 }, 
+  { label: 'Fev', value: 2 }, 
+  { label: 'Mar', value: 3 }, 
+  { label: 'Apr', value: 4 }, 
+  { label: 'Mai', value: 5 }, 
+  { label: 'Jun', value: 6 },
+]);
 
 const datasets = ref([]);
 
@@ -113,7 +118,7 @@ const filterData = async () => {
 
   if (response.status === OK) {
     datasets.value = [];
-    loadData();
+    // loadData();
   }
 };
 
