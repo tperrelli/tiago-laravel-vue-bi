@@ -1,6 +1,6 @@
 ## Seting up
 
-docker exec app cp .env.example .env && composer install
+docker exec app cp .env.example .env && composer install && php artisan key:generate
 
 ## Generating database
 
@@ -12,7 +12,7 @@ docker-compose up -d
 
 ## Endpoints
 
-htp://localhost:88
+http://localhost:88
 
 ## Contributing
 
