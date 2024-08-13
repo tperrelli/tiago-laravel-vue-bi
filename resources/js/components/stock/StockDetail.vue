@@ -10,7 +10,7 @@
 
 <script setup>
 import { ref, watch } from 'vue';
-import httpRequest from '../../../Services/Http';
+import httpRequest from '../../Services/Http';
 
 const OK = 200;
 const items = ref([]);
