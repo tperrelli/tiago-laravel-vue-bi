@@ -9,10 +9,34 @@
               Dashboard
               </a>
           </li>
-          <li class="nav-item">
-              <div class="col-12">
-                  <input type="text" class="form-control" placeholder="Name" aria-label="Name">
-              </div>
+          <li class="nav-item mb-2">
+            <div class="col-12">
+              <select class="form-select" v-model="form.symbol">
+                  <option :value="coin.value" v-for="(coin, index) in coins">{{ coin.label }}</option>
+                </select>
+            </div>
+          </li>
+          <li class="nav-item mb-2">
+            <div class="col-12">
+                <input type="text" class="form-control" placeholder="Name" aria-label="Name" v-model="form.amount">
+            </div>
+          </li>
+          <li class="nav-item mb-2">
+            <div class="col-12">
+                <input type="text" class="form-control" placeholder="Amount" aria-label="Amount">
+            </div>
+          </li>
+          <li class="nav-item mb-2">
+            <div class="col-12">
+              <select class="form-select" v-model="form.month">
+                <option :value="month.value" v-for="(month, index) in months">{{ month.label }}</option>
+              </select>
+            </div>
+          </li>
+          <li class="nav-item mb-2">
+            <div class="col-12">
+              <input type="submit" class="btn btn-success" value="Filter" @click="filter"/>
+            </div>
           </li>
         </ul>
       </div>
@@ -23,3 +47,37 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref } from 'vue';
+import { emit } from '../Services/EventBus';
+
+const form = ref({
+  symbol: '',
+  name: '',
+  amount: 0,
+  month: ''
+});
+
+const coins = ref([
+  { value: '',     label: '- all -'},
+  { value: 'ATL',  label: 'ATL'},
+  { value: 'BTC',  label: 'BTC'},
+  { value: 'ETH',  label: 'ETH'},
+  { value: 'SOL',  label: 'SOL'},
+]);
+
+const months = ref([
+  { label: '- all -', value: '' },
+  { label: 'Jan', value: 1 },
+  { label: 'Fev', value: 2 },
+  { label: 'Mar', value: 3 },
+  { label: 'Apr', value: 4 },
+  { label: 'Mai', value: 5 },
+  { label: 'Jun', value: 6 },
+]);
+
+const filter = () => {
+  emit('filter', form.value);
+}
+</script>

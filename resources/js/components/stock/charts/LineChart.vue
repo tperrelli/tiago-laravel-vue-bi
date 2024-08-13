@@ -7,9 +7,21 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import Chart from 'chart.js/auto';
 import httpRequest from '../../../Services/Http';
+import { on, off } from '../../../Services/eventBus';
+
+
+const form = ref();
+function handleEvent(payload) {
+  form.value = payload;
+  loadData();
+}
+
+onMounted(() => {
+  on('filter', handleEvent);
+});
 
 const OK = 200;
 const chart = ref(null);
@@ -17,7 +29,7 @@ const lineChart = ref(null);
 
 const datasets = ref([]);
 const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun']);
-const form = ref();
+
 
 const chartOptions = {
   plugins: {
@@ -71,5 +83,5 @@ const loadChart = () => {
   }
 };
 
-loadData();
+// loadData();
 </script>
