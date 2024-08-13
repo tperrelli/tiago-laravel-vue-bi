@@ -7,11 +7,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import {ref, onMounted, shallowRef, onUnmounted} from 'vue';
 import Chart from 'chart.js/auto';
 import httpRequest from '../../../Services/Http';
-import { on, off } from '../../../Services/eventBus';
-
+import { on, off } from '../../../Services/EventBus.js';
 
 const form = ref();
 function handleEvent(payload) {
@@ -23,13 +22,16 @@ onMounted(() => {
   on('filter', handleEvent);
 });
 
+onUnmounted(() => {
+  off('filter', handleEvent);
+});
+
 const OK = 200;
-const chart = ref(null);
+let chart = ref(null);
 const lineChart = ref(null);
 
 const datasets = ref([]);
 const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun']);
-
 
 const chartOptions = {
   plugins: {
@@ -70,18 +72,18 @@ const loadData = async () => {
 
 const loadChart = () => {
   if (lineChart.value && !chart.value) {
-    chart.value = new Chart(lineChart.value, {
+    chart = shallowRef(new Chart(lineChart.value, {
         type: 'line',
         data: {
           labels: labels.value,
           datasets: datasets.value
         },
         options: chartOptions
-    });
-  } else {
+    }));
+  } else if (chart.value) {
     chart.value.update();
   }
 };
 
-// loadData();
+loadData();
 </script>
