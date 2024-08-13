@@ -67,8 +67,8 @@ class StockControllerTest extends TestCase
 
     public function test_detail_page(): void
     {
-        $id = 1;
-        $response = $this->get($this->url . '/' . $id);
+        $symbol = 'BTC';
+        $response = $this->get($this->url . '/' . $symbol);
         $response->assertStatus(200);
     }
 }
