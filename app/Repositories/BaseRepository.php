@@ -21,6 +21,18 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this->query()
             ->findOrFail($id);
     }
+    
+    /**
+     * Find a record by symbol
+     * 
+     * @param string symbol
+     */
+    public function findBySymbol(string $symbol)
+    {
+        return $this->query()
+            ->where('small_name', $symbol)
+            ->paginate(30);
+    }
 
     /**
      * Genearte an model query

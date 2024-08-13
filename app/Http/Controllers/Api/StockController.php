@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\StockDetailResource;
 use App\Repositories\StockRepository;
 use App\Http\Resources\StockResource;
 use App\Repositories\Criterias\NameCriteria;
@@ -54,12 +55,12 @@ class StockController extends Controller
     /**
      * Display the specified resource.
      * 
-     * @param int $id
+     * @param string $string
      */
-    public function show(int $id): JsonResource
+    public function show(string $symbol): JsonResource
     {
-        $data = $this->repository->findByID($id);
+        $data = $this->repository->findBySymbol($symbol);
         
-        return new StockResource($data);
+        return StockDetailResource::collection($data);
     }
 }

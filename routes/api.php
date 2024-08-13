@@ -21,5 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'stocks'], function() {
     Route::get('/', [StockController::class, 'index']);
-    Route::get('/{id}', [StockController::class, 'show']);
+    Route::get('/{symbol}', [StockController::class, 'show']);
 });
