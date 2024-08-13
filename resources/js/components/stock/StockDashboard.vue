@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import PieChart from './charts/PieChart.vue';
 import BarChart from './charts/BarChart.vue';
 import LineChart from './charts/LineChart.vue';
