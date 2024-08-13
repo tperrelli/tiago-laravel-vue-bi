@@ -1,65 +1,37 @@
 <template>
-  
-    
-    <div class="row mb-4">
-      <div class="col">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title mb-5">Crypto Analytics</h5>
-            <form @submit.prevent="loadData">
-              <div class="row row-cols-lg-auto">
-                <div class="col-12">
-                  <select class="form-select" v-model="form.symbol">
-                      <option :value="coin.value" v-for="(coin, index) in coins">{{ coin.label }}</option>
-                  </select>
-                </div>
-                <div class="col-12">
-                  <input type="text" v-model="form.name" class="form-control" placeholder="Name" aria-label="Name">
-                </div>
-                <div class="col-12">
-                  <input type="text" v-model="form.amount" class="form-control" placeholder="Amount" aria-label="Amount">
-                </div>
-                  <div class="col-12">
-                      <select class="form-select" v-model="form.month">
-                          <option :value="month.value" v-for="(month, index) in months">{{ month.label }}</option>
-                      </select>
-                  </div>
-                <div class="col-12">
-                  <input type="submit" class="btn btn-success" value="Filter" />
-                </div>
-              </div>
-            </form>
-          </div>
+  <div class="row my-4">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title mb-5">Crypto Analytics</h5>     
         </div>
-
       </div>
     </div>
+  </div>
 
-    <div class="row mb-4">
-      <div class="col">
-        <bar-chart /> 
-      </div>
-      <div class="col">
-        <line-chart />
-      </div>
-      <div class="col">
-        <pie-chart />
-      </div>
+  <div class="row mb-4">
+    <div class="col">
+      <bar-chart /> 
     </div>
-
-    <div class="row">
-      <div class="col">
-        <radar-chart />
-      </div>
-      <div class="col">
-        <polar-chart />
-      </div>
-      <div class="col">
-        <doughnut-chart />
-      </div>
+    <div class="col">
+      <line-chart />
     </div>
+    <div class="col">
+      <pie-chart />
+    </div>
+  </div>
 
-  
+  <div class="row">
+    <div class="col">
+      <radar-chart />
+    </div>
+    <div class="col">
+      <polar-chart />
+    </div>
+    <div class="col">
+      <doughnut-chart />
+    </div>
+  </div>
 </template>
 
 <script setup>

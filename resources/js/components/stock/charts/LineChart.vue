@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import {ref, onMounted, shallowRef, onUnmounted} from 'vue';
+import { ref, onMounted, shallowRef, onUnmounted } from 'vue';
 import Chart from 'chart.js/auto';
 import httpRequest from '../../../Services/Http';
 import { on, off } from '../../../Services/EventBus.js';

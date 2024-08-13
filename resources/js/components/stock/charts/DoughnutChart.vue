@@ -7,17 +7,31 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import Chart from 'chart.js/auto';
 import httpRequest from '../../../Services/Http';
+import { onMounted, onUnmounted, ref, shallowRef } from 'vue';
+import { on, off } from '../../../Services/EventBus.js';
+
+const form = ref();
+function handleEvent(payload) {
+  form.value = payload;
+  loadData();
+}
+
+onMounted(() => {
+  on('filter', handleEvent);
+});
+
+onUnmounted(() => {
+  off('filter', handleEvent)
+});
 
 const OK = 200;
-const chart = ref(null);
+let chart = ref(null);
 const doughnutChart = ref(null);
 
 const datasets = ref([]);
 const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun']);
-const form = ref();
 
 const chartOptions = {
   plugins: {
@@ -35,7 +49,7 @@ const chartOptions = {
     },
     title: {
       display: true,
-      text: 'Volume negociado no mês'
+      text: 'Valor negociado no mês'
     }
   }
 };
@@ -58,15 +72,15 @@ const loadData = async () => {
 
 const loadChart = () => {
   if (doughnutChart.value && !chart.value) {
-    chart.value = new Chart(doughnutChart.value, {
+    chart = shallowRef(new Chart(doughnutChart.value, {
         type: 'doughnut',
         data: {
           labels: labels.value,
           datasets: datasets.value
         },
         options: chartOptions
-    });
-  } else {
+    }));
+  } else if (chart.value) {
     chart.value.update();
   }
 };

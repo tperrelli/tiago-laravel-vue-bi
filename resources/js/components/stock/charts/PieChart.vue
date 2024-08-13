@@ -7,15 +7,29 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import Chart from 'chart.js/auto';
 import httpRequest from '../../../Services/Http';
+import { on, off } from '../../../Services/EventBus.js';
+import { onMounted, onUnmounted, ref, shallowRef } from 'vue';
+
+const form = ref();
+function handleEvent(payload) {
+  form.value = payload;
+  loadData();
+}
+
+onMounted(() => {
+  on('filter', handleEvent);
+});
+
+onUnmounted(() => {
+  off('filter', handleEvent)
+});
 
 const OK = 200;
 const pieChart = ref(null);
 
-const form = {};
-const chart = ref(null);
+let chart = ref(null);
 const datasets = ref([]);
 const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun']);
 const chartOptions = {
@@ -26,7 +40,7 @@ const chartOptions = {
     },
     title: {
       display: true,
-      text: 'Chart.js Pie Chart'
+      text: 'Fatias de cryptos no mercado'
     }
   }
 };
@@ -49,16 +63,16 @@ const loadData = async () => {
 
 const loadChart = () => {
   if (pieChart.value && !chart.value) {
-    chart.value = new Chart(pieChart.value, {
+    chart = shallowRef(new Chart(pieChart.value, {
         type: 'pie',
         data: {
           labels: labels.value,
           datasets: datasets.value
         },
         options: chartOptions
-    });
+    }));
 
-  } else {
+  } else if (chart.value) {
     chart.value.update();
   }
 };
